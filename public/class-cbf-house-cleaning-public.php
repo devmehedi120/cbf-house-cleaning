@@ -99,12 +99,23 @@ class Cbf_House_Cleaning_Public {
 		 * class.
 		 */
 
+		 $pricing = array(
+			'basic'   => floatval(get_option('pricing_basic', 0.25)),
+			'deep'    => floatval(get_option('pricing_deep', 0.40)),
+			'move'    => floatval(get_option('pricing_move', 0.55)),
+			'discounts' => array(
+				'weekly'  => floatval(get_option('pricing_discount_weekly', 0.10)),
+				'monthly' => floatval(get_option('pricing_discount_monthly', 0.15))
+			)
+		);
+
 		wp_enqueue_script('_vuejs', plugin_dir_url( __FILE__ ) . 'js/vueCDn.js', array( ), $this->version, false );
 	
 		wp_enqueue_script( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'js/cbf-house-cleaning-public.js', array( 'jquery','_vuejs' ), $this->version, true );
 		wp_localize_script($this->plugin_name, 'locationAjax', [
 			'ajax_url' => admin_url('admin-ajax.php'),
-			'nonce' => wp_create_nonce('get_locations_nonce')
+			'nonce' => wp_create_nonce('get_locations_nonce'),
+			'pricing'=>$pricing
 		]);
 	
 
@@ -122,12 +133,29 @@ class Cbf_House_Cleaning_Public {
 function get_predefined_locations() {
 	check_ajax_referer('get_locations_nonce');
 
+	$bookings = get_posts(array(
+		'post_type'      => 'booking',
+		'post_status'    => 'publish',
+		'numberposts'    => -1,
+	));
+	
+	$all_dates = array();
+	
+	foreach ($bookings as $booking) {
+		$booking_data = json_decode($booking->post_content, true);
+	
+		if (!empty($booking_data['date'])) {
+			$all_dates[] = $booking_data['date'];
+		}
+	}
+
 	$custom_offdays = get_option('custom_off_days', []); // return empty array if not set
 	$locations = get_option('predefined_locations', []); // return empty array if not set
 
 	$frontdata = array(
         'off_days' => $custom_offdays,
         'locations' => $locations,
+		'all_dates'=>$all_dates
     );
 	wp_send_json_success($frontdata);
 }
@@ -152,27 +180,26 @@ function handle_confirm_booking() {
     
     $post_id = wp_insert_post($post_data);
   
-    // if ($post_id) {
-    //     // Send confirmation email to admin
-    //     $admin_email = get_option('admin_email');
-    //     $subject = 'New Booking Confirmed: ' . $booking_data['fullName'];
-    //     $message = "A new booking has been confirmed.\n\nDetails:\n\n" .
-    //                "Full Name: " . $booking_data['fullName'] . "\n" .
-    //                "Service: " . $booking_data['serviceType'] . "\n" .
-    //                "Date: " . $booking_data['date'] . "\n" .
-    //                "Time Slot: " . $booking_data['timeSlot'] . "\n" .
-    //                "Phone: " . $booking_data['phone'] . "\n" .
-    //                "Email: " . $booking_data['email'] . "\n" .
-    //                "Address: " . $booking_data['address'] . "\n" .
-    //                "Special Requests: " . $booking_data['specialRequests'];
-        
-    //     wp_mail($admin_email, $subject, $message);
-        
-    //     // Respond to the AJAX request
-    //     wp_send_json_success(['message' => 'Booking confirmed and email sent to admin']);
-    // } else {
-    //     wp_send_json_error('Failed to save the booking');
-    // }
+	if ($post_id) {
+		// Send confirmation email to admin
+		$admin_email = get_option('admin_email');
+		$subject = 'New Booking Confirmed: ' . $booking_data['fullName'];
+		
+		// Get the HTML template
+		ob_start();
+		 require_once plugin_dir_path( __FILE__ ). 'partials/mail-template.php';
+		$message = ob_get_clean();
+		
+		// Set HTML content type
+		$headers = array('Content-Type: text/html; charset=UTF-8');
+		
+		wp_mail($admin_email, $subject, $message, $headers);
+		
+		// Respond to the AJAX request
+		wp_send_json_success(['message' => 'Booking confirmed and email sent to admin']);
+	} else {
+		wp_send_json_error('Failed to save the booking');
+	}
 }
 
   

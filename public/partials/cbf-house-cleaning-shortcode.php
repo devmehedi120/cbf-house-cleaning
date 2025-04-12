@@ -77,7 +77,7 @@
                             <div class="sc-square-feet-input">
                                 <input type="number" id="square-feet" class="sc-form-control" 
                                        v-model.number="formData.squareFeet" 
-                                       placeholder="Enter square footage" min="500" max="10000">
+                                       placeholder="Enter square footage" min="50" max="10000">
                                 <span class="sc-unit">ft²</span>
                             </div>
                         </div>
@@ -93,14 +93,14 @@
                                      @click="formData.serviceType = 'basic'">
                                     <h3>Basic Cleaning</h3>
                                     <p>Dusting, vacuuming, mopping, bathroom cleaning, kitchen cleaning</p>
-                                    <div class="sc-price">$0.25/ft²</div>
+                                    <div class="sc-price">{{pricing.basic}}kr</div>
                                 </div>
                                 <div class="sc-service-option" 
                                      :class="{ 'sc-selected': formData.serviceType === 'deep' }"
                                      @click="formData.serviceType = 'deep'">
                                     <h3>Deep Cleaning</h3>
                                     <p>Everything in Basic plus inside appliances, inside windows, detailed scrubbing</p>
-                                    <div class="sc-price">$0.40/ft²</div>
+                                    <div class="sc-price">{{pricing.deep}}kr</div>
                                 </div>
                                 <div class="sc-service-option" 
                                      :class="{ 'sc-selected': formData.serviceType === 'move' }"
@@ -108,7 +108,7 @@
                                     <div class="sc-badge">Popular</div>
                                     <h3>Move In/Out Cleaning</h3>
                                     <p>Everything in Deep plus inside cabinets, walls, baseboards, and closets</p>
-                                    <div class="sc-price">$0.55/ft²</div>
+                                    <div class="sc-price">{{pricing.move}}kr</div>
                                 </div>
                             </div>
                         </div>
@@ -124,19 +124,19 @@
                                 <div class="sc-radio-option">
                                     <input type="radio" name="frequency" id="frequency-weekly" 
                                            v-model="formData.frequency" value="weekly">
-                                    <label for="frequency-weekly">Weekly <span class="sc-discount">10% OFF</span></label>
+                                    <label for="frequency-weekly">Weekly <span class="sc-discount">{{(pricing.discounts.weekly*100).toFixed(0)}}%</span></label>
                                 </div>
                                 <div class="sc-radio-option">
                                     <input type="radio" name="frequency" id="frequency-monthly" 
                                            v-model="formData.frequency" value="monthly">
-                                    <label for="frequency-monthly">Monthly <span class="sc-discount">15% OFF</span></label>
+                                    <label for="frequency-monthly">Monthly <span class="sc-discount">{{(pricing.discounts.monthly*100).toFixed(0)}}%</span></label>
                                 </div>
                             </div>
                         </div>
 
                         <div class="sc-price-display">
                             <div class="sc-label">Estimated Price:</div>
-                            <div class="sc-amount">${{ calculatedPrice.totalPrice }}</div>
+                            <div class="sc-amount">Kr{{ calculatedPrice.totalPrice }}</div>
                         </div>
                     </div>
 
@@ -334,12 +334,12 @@
                         
                         <div class="sc-summary-item">
                             <div class="sc-label">Base Price:</div>
-                            <div class="sc-value">${{ calculatedPrice.basePrice }}</div>
+                            <div class="sc-value">Kr{{ calculatedPrice.basePrice }}</div>
                         </div>
                         
                         <div class="sc-summary-item">
                             <div class="sc-label">Discount:</div>
-                            <div class="sc-value">-${{
+                            <div class="sc-value">-Kr{{
                                 formData.frequency === 'once' ? '0.00' : 
                                 formData.frequency === 'weekly' ? calculatedPrice.discount : 
                                 calculatedPrice.discount
@@ -347,7 +347,7 @@
                         </div>
                         
                         <div class="sc-total-price">
-                            Total: <span>${{ calculatedPrice.totalPrice }}</span>
+                            Total: <span>Kr{{ calculatedPrice.totalPrice }}</span>
                         </div>
                     </div>
                 </div>

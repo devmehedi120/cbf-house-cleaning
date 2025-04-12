@@ -137,14 +137,7 @@ class Cbf_House_Cleaning_Admin {
 			[$this,'render_location_manage_page']
 		);
 	
-		add_submenu_page(
-			'location-manager',
-			'Saved Locations',
-			'Saved Locations',
-			'manage_options',
-			'saved-locations',
-			[$this,'render_saved_locations_page']
-		);
+	
 
 		add_submenu_page(
 			'location-manager', // Parent slug
@@ -164,9 +157,106 @@ class Cbf_House_Cleaning_Admin {
 			[$this,'view_bookings_page'],  // Function to display the content
 			                     // Menu position
 		);
+
+		add_submenu_page(
+			'location-manager',
+			'Pricing Settings',
+			'Pricing Settings',
+			'manage_options',
+			'pricing-settings',
+			[$this,'pricing_settings_page'],
+			
+		);
+		add_submenu_page(
+			'location-manager',
+			'Settings',
+			'Settings',
+			'manage_options',
+			'settings',
+			[$this,'cbf_settings'],
+			
+		);
 		
 	}
 
+	function cbf_settings() {
+		?>
+		<div class="wrap">
+			<h1>CBF Settings</h1>
+			<style>
+				.cbf-settings-table {
+					border-collapse: collapse;
+					width: 100%;
+					max-width: 600px;
+					margin-top: 20px;
+				}
+				.cbf-settings-table th,
+				.cbf-settings-table td {
+					text-align: left;
+					padding: 10px 5px;
+					border: none;
+				}
+				.cbf-shortcode-input {
+					width: 100%;
+					border: none;
+					background: #f4f4f4;
+					padding: 8px;
+					font-family: monospace;
+					font-size: 14px;
+					cursor: pointer;
+				}
+			</style>
+	
+			<table class="cbf-settings-table">
+				<tr>
+					<th>Purpose</th>
+					<th>Shortcode</th>
+				</tr>
+				<tr>
+					<td>Display House Cleaning Feature</td>
+					<td>
+						<input type="text" class="cbf-shortcode-input" value="[cbf_house_cleaning]" readonly onclick="this.select();" />
+					</td>
+				</tr>
+			</table>
+	
+			<p>Click the shortcode box to copy it.</p>
+		</div>
+		<?php
+	}
+	
+	
+	function pricing_settings_page() {
+		// Handle form submit
+		if (isset($_POST['pricing_settings_nonce']) && wp_verify_nonce($_POST['pricing_settings_nonce'], 'save_pricing_settings')) {
+			update_option('pricing_basic', floatval($_POST['pricing_basic']));
+			update_option('pricing_deep', floatval($_POST['pricing_deep']));
+			update_option('pricing_move', floatval($_POST['pricing_move']));
+			update_option('pricing_discount_weekly', floatval($_POST['pricing_discount_weekly']));
+			update_option('pricing_discount_monthly', floatval($_POST['pricing_discount_monthly']));
+			echo '<div class="updated"><p>Pricing settings saved!</p></div>';
+		}
+	
+		?>
+		<div class="wrap">
+			<h1>Pricing Settings</h1>
+			<form method="post">
+				<?php wp_nonce_field('save_pricing_settings', 'pricing_settings_nonce'); ?>
+	
+				<table class="form-table">
+					<tr><th>Basic</th><td><input type="text" name="pricing_basic" value="<?php echo esc_attr(get_option('pricing_basic', 0.25)); ?>"></td></tr>
+					<tr><th>Deep</th><td><input type="text" name="pricing_deep" value="<?php echo esc_attr(get_option('pricing_deep', 0.40)); ?>"></td></tr>
+					<tr><th>Move</th><td><input type="text" name="pricing_move" value="<?php echo esc_attr(get_option('pricing_move', 0.55)); ?>"></td></tr>
+					<tr><th>Weekly Discount</th><td><input type="text" name="pricing_discount_weekly" value="<?php echo esc_attr(get_option('pricing_discount_weekly', 0.10)); ?>"></td></tr>
+					<tr><th>Monthly Discount</th><td><input type="text" name="pricing_discount_monthly" value="<?php echo esc_attr(get_option('pricing_discount_monthly', 0.15)); ?>"></td></tr>
+				</table>
+	
+				<p><input type="submit" class="button-primary" value="Save Settings"></p>
+			</form>
+		</div>
+		<?php
+	}
+	
 	public function render_off_days_page() {
 		?>
 		<div class="wrap">
@@ -224,30 +314,7 @@ class Cbf_House_Cleaning_Admin {
 		<?php
 	}
 	
-	function render_saved_locations_page() {
-		$locations = get_option('predefined_locations', []);
-		?>
-		<div class="wrap">
-			<h1>Saved Locations</h1>
-			<?php if (!empty($locations)): ?>
-				<table class="widefat fixed striped">
-					<thead><tr><th>#</th><th>Location Name</th></tr></thead>
-					<tbody>
-						<?php foreach ($locations as $index => $loc): ?>
-							<tr>
-								<td><?php echo $index + 1; ?></td>
-								<td><?php echo esc_html($loc); ?></td>
-								<td><button class='button delete-location'>Delete</button></td>
-							</tr>
-						<?php endforeach; ?>
-					</tbody>
-				</table>
-			<?php else: ?>
-				<p>No locations found.</p>
-			<?php endif; ?>
-		</div>
-		<?php
-	}
+	
 	
 
 
@@ -428,6 +495,8 @@ function view_booking_invoice($booking_id) {
     if ($post_content && is_object($post_content)) {
         // Start the invoice HTML layout
         echo '<div class="booking-invoice">';
+		echo '<a href="' . esc_url( admin_url( 'admin.php?page=view_bookings' ) ) . '" style="display: inline-block; padding: 8px 16px; background-color: #0073aa; color: #fff; text-decoration: none; border-radius: 4px; font-weight: bold;">&larr; Back to Bookings</a>';
+
         echo '<h1>Booking Invoice</h1>';
         echo '<div class="invoice-details">';
         

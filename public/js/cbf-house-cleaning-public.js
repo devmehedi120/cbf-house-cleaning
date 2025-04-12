@@ -13,7 +13,7 @@ createApp({
 			{ value: "afternoon", label: "Afternoon (12PM - 4PM)" },
 			{ value: "evening", label: "Evening (4PM - 8PM)" }
 		];
-
+		const pricing=locationAjax.pricing
 		// Form steps
 		const steps = ['Location', 'Service', 'Schedule', 'Your Info', 'Summary'];
 		const step = ref(0);
@@ -28,7 +28,7 @@ createApp({
 		// Form data
 		const formData = ref({
 			propertyType: '',
-			squareFeet: 0,
+			squareFeet: 50,
 			serviceType: 'basic',
 			frequency: 'once',
 			date: todayStr,
@@ -60,19 +60,7 @@ createApp({
 		displayedMonths: [],
 		// Static booked dates in simple formats
 		bookedDates: [
-			// Format: 'M/D/YYYY' or 'MM/DD/YYYY'
-			'1/15/2023',    // January 15, 2023
-			'2/20/2023',    // February 20, 2023
-			'03/10/2023',   // March 10, 2023
-			'04/05/2023',   // April 5, 2023
-			'5/15/2023',    // May 15, 2023
-			'06/20/2023',   // June 20, 2023
-			'7/10/2023',    // July 10, 2023
-			'08/05/2023',   // August 5, 2023
-			'9/15/2023',    // September 15, 2023
-			'10/20/2023',   // October 20, 2023
-			'11/10/2023',   // November 10, 2023
-			'12/05/2023'    // December 5, 2023
+			
 		],
 		// Static off days (holidays and weekends)
 		offDays: [
@@ -94,9 +82,11 @@ createApp({
 		.then(res => res.json())
 		.then(data => {
 			if (data.success) {
-				console.log(data);
+				console.log(data.data);
 				predefinedLocations.value = data.data.locations;
 				calendar.value.offDays=data.data.off_days
+				calendar.value.bookedDates=data.data.all_dates
+				initializeCalendar();
 
 			} else {
 				console.error('Failed to load locations');
@@ -304,18 +294,10 @@ createApp({
 		};
 
 		// Initialize the calendar
-		initializeCalendar();
+
+
 		
-		// Price calculation data
-		const pricing = {
-			basic: 0.25,
-			deep: 0.40,
-			move: 0.55,
-			discounts: {
-				weekly: 0.10,
-				monthly: 0.15
-			}
-		};
+	
 		
 		// Calculate price based on form data
 		const calculatedPrice = computed(() => {
@@ -410,8 +392,8 @@ createApp({
 					}
 					break;
 				case 1: // Service step
-					if (!formData.value.squareFeet || formData.value.squareFeet < 500) {
-						alert('Please enter a valid property size (minimum 500 ft²)');
+					if (!formData.value.squareFeet || formData.value.squareFeet < 50) {
+						alert('Please enter a valid property size (minimum 50 ft²)');
 						isValid = false;
 					}
 					break;
@@ -469,8 +451,7 @@ createApp({
 		  };
 
 		  const confirmBooking = () => {
-			console.log(formData.value);  // To see the form data in the console
-			
+						
 			const bookingData = {
 			  propertyType: formData.value.propertyType,
 			  squareFeet: formData.value.squareFeet,
@@ -522,6 +503,7 @@ createApp({
 			handleConfirmBooking,
 			formData,
 			errors,
+			pricing,
 			predefinedLocations,
 			availableTimeSlots,
 			today: todayStr,
