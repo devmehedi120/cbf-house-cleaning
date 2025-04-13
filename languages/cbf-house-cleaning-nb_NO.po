@@ -1,0 +1,268 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: \n"
+"POT-Creation-Date: 2025-04-14 03:27+0600\n"
+"PO-Revision-Date: 2025-04-14 03:49+0600\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"Language: nb_NO\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 3.6\n"
+"X-Poedit-Basepath: ../public/partials\n"
+"X-Poedit-KeywordsList: __\n"
+"X-Poedit-SearchPath-0: .\n"
+
+#: cbf-house-cleaning-shortcode.php:5
+msgid "HouseClean"
+msgstr "HouseClean"
+
+#: cbf-house-cleaning-shortcode.php:6
+msgid "Book your professional house cleaning service in just a few steps"
+msgstr "Bestill din profesjonelle husrengjøring med bare noen få trinn"
+
+#: cbf-house-cleaning-shortcode.php:13 cbf-house-cleaning-shortcode.php:41
+msgid "Post Code"
+msgstr "postnummer"
+
+#: cbf-house-cleaning-shortcode.php:18
+msgid "Service"
+msgstr "Service"
+
+#: cbf-house-cleaning-shortcode.php:23
+msgid "Schedule"
+msgstr "Rute"
+
+#: cbf-house-cleaning-shortcode.php:28
+msgid "Your Info"
+msgstr "Din info"
+
+#: cbf-house-cleaning-shortcode.php:33
+msgid "Summary"
+msgstr "Sammendrag"
+
+#: cbf-house-cleaning-shortcode.php:45
+msgid "Select a Postcode"
+msgstr "Velg et postnummer"
+
+#: cbf-house-cleaning-shortcode.php:52
+msgid "Full Address"
+msgstr "Full adresse"
+
+#: cbf-house-cleaning-shortcode.php:61
+msgid "Property Type"
+msgstr "Eiendomstype"
+
+#: cbf-house-cleaning-shortcode.php:63
+msgid "Select property type"
+msgstr "Velg eiendomstype"
+
+#: cbf-house-cleaning-shortcode.php:64
+msgid "House"
+msgstr "Hus"
+
+#: cbf-house-cleaning-shortcode.php:65
+msgid "Apartment"
+msgstr "Leilighet"
+
+#: cbf-house-cleaning-shortcode.php:70
+msgid "Property Size (Square Feet)"
+msgstr "Eiendomsstørrelse (kvadratfot)"
+
+#: cbf-house-cleaning-shortcode.php:83
+msgid "Select Cleaning Service"
+msgstr "Velg Rengjøringstjeneste"
+
+#: cbf-house-cleaning-shortcode.php:88
+msgid "Basic Cleaning"
+msgstr "Grunnleggende rengjøring"
+
+#: cbf-house-cleaning-shortcode.php:89
+msgid "Dusting, vacuuming, mopping, bathroom cleaning, kitchen cleaning"
+msgstr ""
+"Støvtørking, støvsuging, mopping, rengjøring av bad, rengjøring av kjøkken"
+
+#: cbf-house-cleaning-shortcode.php:95
+msgid "Deep Cleaning"
+msgstr "Dyp rengjøring"
+
+#: cbf-house-cleaning-shortcode.php:96
+msgid ""
+"Everything in Basic plus inside appliances, inside windows, detailed "
+"scrubbing"
+msgstr ""
+"Alt i Basic pluss innvendig i hvitevarer, innvendig vinduer, detaljert "
+"skrubbing"
+
+#: cbf-house-cleaning-shortcode.php:102
+msgid "Popular"
+msgstr "Populær"
+
+#: cbf-house-cleaning-shortcode.php:103
+msgid "Move In/Out Cleaning"
+msgstr "Flytte inn/ut rengjøring"
+
+#: cbf-house-cleaning-shortcode.php:104
+msgid "Everything in Deep plus inside cabinets, walls, baseboards, and closets"
+msgstr "Alt i Deep plus inne i skap, vegger, fotlister og skap"
+
+#: cbf-house-cleaning-shortcode.php:111
+msgid "Cleaning Frequency"
+msgstr "Rengjøringsfrekvens"
+
+#: cbf-house-cleaning-shortcode.php:116
+msgid "One Time"
+msgstr "En gang"
+
+#: cbf-house-cleaning-shortcode.php:121
+msgid "2-Weekly"
+msgstr "2-ukentlig"
+
+#: cbf-house-cleaning-shortcode.php:126
+msgid "Monthly"
+msgstr "Månedlig"
+
+#: cbf-house-cleaning-shortcode.php:132
+msgid "Estimated Price:"
+msgstr "Estimert pris:"
+
+#: cbf-house-cleaning-shortcode.php:140
+msgid "Select Cleaning Date"
+msgstr "Velg Rengjøringsdato"
+
+#: cbf-house-cleaning-shortcode.php:143
+msgid "Booking Calendar"
+msgstr "Bestillingskalender"
+
+#: cbf-house-cleaning-shortcode.php:192
+msgid "Available"
+msgstr "Tilgjengelig"
+
+#: cbf-house-cleaning-shortcode.php:196
+msgid "Booked"
+msgstr "Bestilt"
+
+#: cbf-house-cleaning-shortcode.php:200
+msgid "Day Off"
+msgstr "Fridag"
+
+#: cbf-house-cleaning-shortcode.php:204
+msgid "Selected"
+msgstr "Valgt"
+
+#: cbf-house-cleaning-shortcode.php:208
+msgid "Today"
+msgstr "I dag"
+
+#: cbf-house-cleaning-shortcode.php:213
+msgid "Selected Date:"
+msgstr "Valgt dato:"
+
+#: cbf-house-cleaning-shortcode.php:216
+msgid "This date is already booked"
+msgstr "Denne datoen er allerede booket"
+
+#: cbf-house-cleaning-shortcode.php:219
+msgid "This is a day off (no bookings available)"
+msgstr "Dette er en fridag (ingen bestilling tilgjengelig)"
+
+#: cbf-house-cleaning-shortcode.php:222
+msgid "This date is available for booking"
+msgstr "Denne datoen er tilgjengelig for bestilling"
+
+#: cbf-house-cleaning-shortcode.php:229
+msgid "Available Time Slots"
+msgstr "Tilgjengelige tidsluker"
+
+#: cbf-house-cleaning-shortcode.php:241
+msgid "Special Requests (Optional)"
+msgstr "Spesielle forespørsler (valgfritt)"
+
+#: cbf-house-cleaning-shortcode.php:251
+msgid "Full Name"
+msgstr "Fullt navn"
+
+#: cbf-house-cleaning-shortcode.php:259
+msgid "Email Address"
+msgstr "E-postadresse"
+
+#: cbf-house-cleaning-shortcode.php:267
+msgid "Phone Number"
+msgstr "Telefonnummer"
+
+#: cbf-house-cleaning-shortcode.php:275
+msgid "Payment Method"
+msgstr "Betalingsmåte"
+
+#: cbf-house-cleaning-shortcode.php:279
+msgid "Invoice"
+msgstr "Faktura"
+
+#: cbf-house-cleaning-shortcode.php:287
+msgid "Booking Summary"
+msgstr "Bestillingssammendrag"
+
+#: cbf-house-cleaning-shortcode.php:290
+msgid "Location:"
+msgstr "Sted:"
+
+#: cbf-house-cleaning-shortcode.php:295
+msgid "Full Address:"
+msgstr "Full adresse:"
+
+#: cbf-house-cleaning-shortcode.php:300
+msgid "Property Type:"
+msgstr "Eiendomstype:"
+
+#: cbf-house-cleaning-shortcode.php:301
+msgid "Not specified"
+msgstr "Ikke spesifisert"
+
+#: cbf-house-cleaning-shortcode.php:305
+msgid "Service Type:"
+msgstr "Tjenestetype:"
+
+#: cbf-house-cleaning-shortcode.php:310
+msgid "Property Size:"
+msgstr "Eiendomsstørrelse:"
+
+#: cbf-house-cleaning-shortcode.php:315
+msgid "Frequency:"
+msgstr "Hyppighet:"
+
+#: cbf-house-cleaning-shortcode.php:320
+msgid "Scheduled Date:"
+msgstr "Planlagt dato:"
+
+#: cbf-house-cleaning-shortcode.php:321
+msgid "Not selected"
+msgstr "Ikke valgt"
+
+#: cbf-house-cleaning-shortcode.php:325
+msgid "Time Slot:"
+msgstr "Tidsrom:"
+
+#: cbf-house-cleaning-shortcode.php:330
+msgid "Base Price:"
+msgstr "Grunnpris:"
+
+#: cbf-house-cleaning-shortcode.php:335
+msgid "Discount:"
+msgstr "Rabatt:"
+
+#: cbf-house-cleaning-shortcode.php:344
+msgid "Total:"
+msgstr "Total:"
+
+#: cbf-house-cleaning-shortcode.php:352
+msgid "Previous"
+msgstr "Tidligere"
+
+#: cbf-house-cleaning-shortcode.php:356
+msgid "Confirm Booking"
+msgstr "Bekreft bestilling"
+
+#: cbf-house-cleaning-shortcode.php:356
+msgid "Next"
+msgstr "Neste"

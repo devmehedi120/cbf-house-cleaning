@@ -6,7 +6,7 @@ createApp({
 	setup() {
 		// Predefined locations
 	
-
+         
 		// Available time slots
 		const availableTimeSlots = [
 			{ value: "morning", label: "Morning (8AM - 12PM)" },
@@ -39,7 +39,7 @@ createApp({
 			phone: '',
 			location: '',
 			address: '',
-			paymentMethod: ''
+			paymentMethod: 'invoice'
 		});
 
 		// Error messages
@@ -124,91 +124,103 @@ createApp({
 			return months;
 		};
 
-		// Generate data for a specific month
-		const generateMonthData = (year, month) => {
-			const firstDay = new Date(year, month, 1);
-			const lastDay = new Date(year, month + 1, 0);
-			const daysInMonth = lastDay.getDate();
-			
-			const firstDayOfWeek = firstDay.getDay();
-			const lastDayOfWeek = lastDay.getDay();
-			
-			const daysFromPrevMonth = firstDayOfWeek;
-			const daysFromNextMonth = 6 - lastDayOfWeek;
-			
-			const days = [];
-			
-			// Previous month days
-			const prevMonth = month === 0 ? 11 : month - 1;
-			const prevYear = month === 0 ? year - 1 : year;
-			const prevMonthLastDay = new Date(year, month, 0).getDate();
-			
-			for (let i = daysFromPrevMonth - 1; i >= 0; i--) {
-				const day = prevMonthLastDay - i;
-				const date = new Date(prevYear, prevMonth, day);
-				const dateStr = date.toISOString().split('T')[0];
-				
-				days.push({
-					dayNumber: day,
-					date: dateStr,
-					isCurrentMonth: false,
-					isToday: isToday(date),
-					isBooked: isDateBooked(dateStr),
-					isOffDay: isDateOffDay(dateStr),
-					isAvailable: isDateAvailable(dateStr)
-				});
-			}
-			
-			// Current month days
-			for (let day = 1; day <= daysInMonth; day++) {
-				const date = new Date(year, month, day);
-				const dateStr = date.toISOString().split('T')[0];
-				
-				days.push({
-					dayNumber: day,
-					date: dateStr,
-					isCurrentMonth: true,
-					isToday: isToday(date),
-					isBooked: isDateBooked(dateStr),
-					isOffDay: isDateOffDay(dateStr),
-					isAvailable: isDateAvailable(dateStr)
-				});
-			}
-			
-			// Next month days
-			const nextMonth = month === 11 ? 0 : month + 1;
-			const nextYear = month === 11 ? year + 1 : year;
-			
-			for (let day = 1; day <= daysFromNextMonth; day++) {
-				const date = new Date(nextYear, nextMonth, day);
-				const dateStr = date.toISOString().split('T')[0];
-				
-				days.push({
-					dayNumber: day,
-					date: dateStr,
-					isCurrentMonth: false,
-					isToday: isToday(date),
-					isBooked: isDateBooked(dateStr),
-					isOffDay: isDateOffDay(dateStr),
-					isAvailable: isDateAvailable(dateStr)
-				});
-			}
-			
-			return {
-				name: new Date(year, month, 1).toLocaleString('default', { month: 'long' }),
-				year: year,
-				month: month,
-				days: days,
-				key: `${year}-${month}`
-			};
-		};
+	// Replace the generateMonthData function with this updated version
+const generateMonthData = (year, month) => {
+    const firstDay = new Date(year, month, 1);
+    const lastDay = new Date(year, month + 1, 0);
+    const daysInMonth = lastDay.getDate();
+    
+    const firstDayOfWeek = firstDay.getDay();
+    const lastDayOfWeek = lastDay.getDay();
+    
+    const daysFromPrevMonth = firstDayOfWeek;
+    const daysFromNextMonth = 6 - lastDayOfWeek;
+    
+    const days = [];
+    
+    // Previous month days
+    const prevMonth = month === 0 ? 11 : month - 1;
+    const prevYear = month === 0 ? year - 1 : year;
+    const prevMonthLastDay = new Date(year, month, 0).getDate();
+    
+    for (let i = daysFromPrevMonth - 1; i >= 0; i--) {
+        const day = prevMonthLastDay - i;
+        // Fixed date creation - use local date string format
+        const date = new Date(prevYear, prevMonth, day);
+        const dateStr = formatLocalDateString(date);
+        
+        days.push({
+            dayNumber: day,
+            date: dateStr,
+            isCurrentMonth: false,
+            isToday: isToday(date),
+            isBooked: isDateBooked(dateStr),
+            isOffDay: isDateOffDay(dateStr),
+            isAvailable: isDateAvailable(dateStr)
+        });
+    }
+    
+    // Current month days
+    for (let day = 1; day <= daysInMonth; day++) {
+        const date = new Date(year, month, day);
+        // Fixed date creation - use local date string format
+        const dateStr = formatLocalDateString(date);
+        
+        days.push({
+            dayNumber: day,
+            date: dateStr,
+            isCurrentMonth: true,
+            isToday: isToday(date),
+            isBooked: isDateBooked(dateStr),
+            isOffDay: isDateOffDay(dateStr),
+            isAvailable: isDateAvailable(dateStr)
+        });
+    }
+    
+    // Next month days
+    const nextMonth = month === 11 ? 0 : month + 1;
+    const nextYear = month === 11 ? year + 1 : year;
+    
+    for (let day = 1; day <= daysFromNextMonth; day++) {
+        const date = new Date(nextYear, nextMonth, day);
+        // Fixed date creation - use local date string format
+        const dateStr = formatLocalDateString(date);
+        
+        days.push({
+            dayNumber: day,
+            date: dateStr,
+            isCurrentMonth: false,
+            isToday: isToday(date),
+            isBooked: isDateBooked(dateStr),
+            isOffDay: isDateOffDay(dateStr),
+            isAvailable: isDateAvailable(dateStr)
+        });
+    }
+    
+    return {
+        name: new Date(year, month, 1).toLocaleString('default', { month: 'long' }),
+        year: year,
+        month: month,
+        days: days,
+        key: `${year}-${month}`
+    };
+};
 
-		// Check if a date is today
-		const isToday = (date) => {
-			const dateStr = new Date(date).toISOString().split('T')[0];
-			return todayStr === dateStr;
-		};
-		
+// Helper function to format date in YYYY-MM-DD without time zone issues
+const formatLocalDateString = (date) => {
+    const year = date.getFullYear();
+    const month = String(date.getMonth() + 1).padStart(2, '0');
+    const day = String(date.getDate()).padStart(2, '0');
+    return `${year}-${month}-${day}`;
+};
+
+// Also update the isToday function to use the same date format
+const isToday = (date) => {
+    const today = new Date();
+    return date.getDate() === today.getDate() && 
+           date.getMonth() === today.getMonth() && 
+           date.getFullYear() === today.getFullYear();
+};
 		// Check if a date is booked
 		const isDateBooked = (dateStr) => {
 			return calendar.value.bookedDates.includes(dateStr);
@@ -220,7 +232,7 @@ createApp({
 			const dayOfWeek = date.getDay();
 			
 			// // Weekends are off days
-			if (dayOfWeek === 0 || dayOfWeek === 6) return true;
+			if ( dayOfWeek === 0) return true;
 			
 			// Also check our offDays array
 			return calendar.value.offDays.includes(dateStr);
@@ -232,7 +244,7 @@ createApp({
 			const dayOfWeek = date.getDay();
 			
 			// Only weekdays can be available
-			if (dayOfWeek === 0 || dayOfWeek === 6) return false;
+			if ( dayOfWeek === 0) return false;
 			
 			// Not booked and not an off day
 			return !isDateBooked(dateStr) && !isDateOffDay(dateStr);
@@ -441,16 +453,21 @@ createApp({
 			
 			return isValid;
 		};
+		const isbtnDisabled=ref(false);
 		const handleConfirmBooking = () => {
 			// If on last step, confirm booking
 			if (step.value === steps.length - 1) {
+
 			  confirmBooking();
+			 
+
 			} else {
 			  nextStep(); // Otherwise, proceed to the next step
 			}
 		  };
 
 		  const confirmBooking = () => {
+			isbtnDisabled.value = true;
 						
 			const bookingData = {
 			  propertyType: formData.value.propertyType,
@@ -467,7 +484,7 @@ createApp({
 			  address: formData.value.address,
 			  paymentMethod: formData.value.paymentMethod,
 			};
-		  
+			
 			// Sending the AJAX request
 			fetch(locationAjax.ajax_url, {
 			  method: 'POST',
@@ -485,6 +502,8 @@ createApp({
 			  if (data.success) {
 				console.log('Booking Confirmed!', data);
 				// Handle successful booking (e.g., display a success message)
+				$('.booking_button').text('Booking  Confirmed!');
+				
 			  } else {
 				console.error('Failed to confirm booking', data);
 				// Handle failed booking (e.g., display an error message)
@@ -514,6 +533,7 @@ createApp({
 			timeSlotLabel,
 			calendar,
 			isDateBooked,
+			isbtnDisabled,
 			isDateOffDay,
 			isDateSelected,
 			selectCalendarDate,

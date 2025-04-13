@@ -16,7 +16,7 @@
  * Plugin Name:       Custom Booking For House Cleaning
  * Plugin URI:        https://https://www.fiverr.com/wpdevmehedi
  * Description:       House Cleaning service Booking plugin
- * Version:           1.0.1
+ * Version:           1.0.2
  * Author:            Mehedi Hasan 
  * Author URI:        https://www.fiverr.com/wpdevmehedi/
  * License:           GPL-2.0+
@@ -35,7 +35,7 @@ if ( ! defined( 'WPINC' ) ) {
  * Start at version 1.0.0 and use SemVer - https://semver.org
  * Rename this for your plugin and update it as you release new versions.
  */
-define( 'CBF_HOUSE_CLEANING_VERSION', '1.0.1' );
+define( 'CBF_HOUSE_CLEANING_VERSION', '1.0.2' );
 
 /**
  * The code that runs during plugin activation.

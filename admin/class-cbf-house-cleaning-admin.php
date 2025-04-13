@@ -247,7 +247,7 @@ class Cbf_House_Cleaning_Admin {
 					<tr><th>Basic</th><td><input type="text" name="pricing_basic" value="<?php echo esc_attr(get_option('pricing_basic', 0.25)); ?>"></td></tr>
 					<tr><th>Deep</th><td><input type="text" name="pricing_deep" value="<?php echo esc_attr(get_option('pricing_deep', 0.40)); ?>"></td></tr>
 					<tr><th>Move</th><td><input type="text" name="pricing_move" value="<?php echo esc_attr(get_option('pricing_move', 0.55)); ?>"></td></tr>
-					<tr><th>Weekly Discount</th><td><input type="text" name="pricing_discount_weekly" value="<?php echo esc_attr(get_option('pricing_discount_weekly', 0.10)); ?>"></td></tr>
+					<tr><th>2-Weekly Discount</th><td><input type="text" name="pricing_discount_weekly" value="<?php echo esc_attr(get_option('pricing_discount_weekly', 0.10)); ?>"></td></tr>
 					<tr><th>Monthly Discount</th><td><input type="text" name="pricing_discount_monthly" value="<?php echo esc_attr(get_option('pricing_discount_monthly', 0.15)); ?>"></td></tr>
 				</table>
 	
@@ -290,13 +290,13 @@ class Cbf_House_Cleaning_Admin {
 	function render_location_manage_page() {
 		?>
 		<div class="wrap">
-			<h1>Manage Locations</h1>
+			<h1>Manage Locations/PostCode</h1>
 			<input type="text" id="location-input" placeholder="Enter location name" />
-			<button id="add-location" class="button button-primary">Add Location</button>
+			<button id="add-location" class="button button-primary">Add Post Code</button>
 	
 			<table class="widefat fixed striped" style="margin-top: 20px;">
 				<thead>
-					<tr><th>Location Name</th><th>Action</th></tr>
+					<tr><th>Post Code</th><th>Action</th></tr>
 				</thead>
 				<tbody id="location-list">
 					<?php
